@@ -8,7 +8,8 @@ provider "vsphere" {
 }
 
 resource "vsphere_virtual_machine" "learn" {
-  name             = "tf-on-vxrail"
+  count = 5
+  name             = "tf-on-vxrail-${count.index}"
   resource_pool_id = data.vsphere_compute_cluster.cluster.resource_pool_id
   datastore_id     = data.vsphere_datastore.datastore.id
 
