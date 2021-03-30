@@ -9,7 +9,7 @@ terraform {
 
 
 provider "aws" {
-  region = "us-east-1"
+  region = "us-west-2"
 }
 
 resource "aws_instance" "tf_ec2" {
@@ -19,5 +19,5 @@ resource "aws_instance" "tf_ec2" {
 
 variable "aws-region" {
   type    = string
-  default = "us-east-1"
+  default = "us-west-2"
 }
