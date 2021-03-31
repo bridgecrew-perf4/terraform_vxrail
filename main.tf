@@ -45,10 +45,3 @@ resource "vsphere_virtual_machine" "tf_vm" {
   }
 }
 
-/* ## Demo Changes
-resource "vsphere_distributed_port_group" "tf_pg" {
-  name                            = "pg"
-  distributed_virtual_switch_uuid = data.vsphere_distributed_virtual_switch.vxrail-dvs.id
-
-  vlan_id = 10
-} */

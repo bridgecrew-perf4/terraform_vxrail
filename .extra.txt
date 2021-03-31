@@ -1,0 +1,36 @@
+/*terraform {
+  required_providers {
+    vsphere = {
+      source  = "hashicorp/vsphere"
+      version = "1.25.0"
+    }
+    aws = {
+      source = "hashicorp/aws"
+      version = "~> 3.34"
+    }
+  }
+}*/
+
+
+provider "aws" {
+  region = "us-east-1"
+}
+
+resource "aws_instance" "tf_ec2" {
+  ami           = "ami-2757f631"
+  instance_type = "t2.micro"
+}
+
+variable "aws-region" {
+  type    = string
+  default = "us-east-1"
+  //default = "us-west-2"
+}
+
+## Demo Changes
+resource "vsphere_distributed_port_group" "tf_pg" {
+  name                            = "pg"
+  distributed_virtual_switch_uuid = data.vsphere_distributed_virtual_switch.vxrail-dvs.id
+
+  vlan_id = 10
+} 
