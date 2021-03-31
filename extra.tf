@@ -1,3 +1,4 @@
+/*
 terraform {
   required_providers {
     aws = {
@@ -21,3 +22,4 @@ variable "aws-region" {
   type    = string
   default = "us-west-2"
 }
+*/
