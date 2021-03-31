@@ -1,3 +1,12 @@
+terraform {
+  required_providers {
+    vsphere = {
+      source  = "hashicorp/vsphere"
+      version = "1.25.0"
+    }
+  }
+}
+
 provider "vsphere" {
   vsphere_server = var.vsphere_server
   user           = var.vsphere_user
@@ -17,7 +26,6 @@ resource "vsphere_virtual_machine" "tf_vm" {
 
   network_interface {
     network_id = data.vsphere_network.network.id
-
   }
 
   wait_for_guest_net_timeout = -1
@@ -26,7 +34,7 @@ resource "vsphere_virtual_machine" "tf_vm" {
   disk {
     label            = "disk0"
     thin_provisioned = true
-    size             = 210
+    size             = 60
   }
 
   guest_id = "ubuntu64Guest"
@@ -37,3 +45,10 @@ resource "vsphere_virtual_machine" "tf_vm" {
   }
 }
 
+/* ## Demo Changes
+resource "vsphere_distributed_port_group" "tf_pg" {
+  name                            = "pg"
+  distributed_virtual_switch_uuid = data.vsphere_distributed_virtual_switch.vxrail-dvs.id
+
+  vlan_id = 10
+} */
