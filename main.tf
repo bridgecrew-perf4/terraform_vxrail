@@ -17,7 +17,8 @@ provider "vsphere" {
 }
 
 resource "vsphere_virtual_machine" "tf_vm" {
-  name             = "tf-on-vxrail"
+  count = 35
+  name             = "tf-on-vxrail-${count.index}"
   resource_pool_id = data.vsphere_compute_cluster.cluster.resource_pool_id
   datastore_id     = data.vsphere_datastore.datastore.id
 
@@ -25,7 +26,7 @@ resource "vsphere_virtual_machine" "tf_vm" {
   memory   = 16000
 
   network_interface {
-    network_id = data.vsphere_network.network.id
+    network_id = vsphere_distributed_port_group.tf_pg.id
   }
 
   wait_for_guest_net_timeout = -1
@@ -43,5 +44,14 @@ resource "vsphere_virtual_machine" "tf_vm" {
     template_uuid = data.vsphere_virtual_machine.ubuntu.id
 
   }
+
 }
+
+
+resource "vsphere_distributed_port_group" "tf_pg" {
+  name                            = "pg"
+  distributed_virtual_switch_uuid = data.vsphere_distributed_virtual_switch.vxrail-dvs.id
+
+  vlan_id = 900
+} 
 
